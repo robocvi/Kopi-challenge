@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-
+from src.requests.chatbot_request import ChatbotRequest
+from src.controllers.chatbot_controller import ChatbotController
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -17,3 +18,7 @@ app.add_middleware(
 @app.get("/", tags=["Root"])
 async def read_root():
     return {"message": "Prueba kopi-challenge API!"}
+
+@app.post("/kopi-chatbot", tags=["Chatbot"]) 
+async def chatbot(request: ChatbotRequest):
+    return ChatbotController.ask_chatbot(request)
