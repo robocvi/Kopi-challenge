@@ -1,10 +1,16 @@
 from openai import OpenAI
+import uuid
+from pymongo import MongoClient
 
-from src.settings import OPENAI_API_KEY
+from src.settings import OPENAI_API_KEY, MONGO_DB_CONNECTION_STRING
 from src.requests.chatbot_request import ChatbotRequest
 from src.responses.chatbot_response import ChatBotResponse, Message
 
 client = OpenAI(api_key=OPENAI_API_KEY)
+
+mongo_client = MongoClient(MONGO_DB_CONNECTION_STRING)
+db = mongo_client["chatbot_db"]
+conversations_collection = db["conversations"]
 
 class ChatbotController:
 
@@ -18,10 +24,20 @@ class ChatbotController:
             Here is the statement you must defend: {request.message}'''}
           ]
         )
-        response = response.choices[0].message.content
+        response_message = response.choices[0].message.content
 
         first_user_message = Message(role="user", message=request.message)
-        first_bot_message = Message(role="bot", message=response)
+        first_bot_message = Message(role="bot", message=response_message)
 
         conversation_history = [first_user_message, first_bot_message]
-        return ChatBotResponse(conversation_id="1", messages=conversation_history)
+
+        conversation_id = str(uuid.uuid4())
+        conversations_collection.insert_one({
+            "_id": conversation_id,
+            "messages": [
+                {"role": "user", "message": request.message},
+                {"role": "bot", "message": response_message}
+            ]
+        })
+
+        return ChatBotResponse(conversation_id=conversation_id, messages=conversation_history)
