@@ -21,4 +21,4 @@ async def read_root():
 
 @app.post("/kopi-chatbot", tags=["Chatbot"]) 
 async def chatbot(request: ChatbotRequest):
-    return ChatbotController.ask_chatbot(request)
+    return ChatbotController.first_message(request)
