@@ -39,3 +39,10 @@ down:
 clean:
 	@echo "Removing all containers and volumes..."
 	@$(docker_compose) down --rmi all --volumes --remove-orphans
+
+clean-cache:
+	@echo "Cleaning cache files..."
+	@find . -type d -name '__pycache__' -exec rm -rf {} +
+	@rm -rf .pytest_cache
+
+nuke: down clean clean-cache;
