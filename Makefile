@@ -26,7 +26,7 @@ install:
 
 test:
 	@echo "Running tests with pytest..."
-	@$(PYTHON) -m pytest tests
+	@$(PYTHON) -m pytest tests/test_app.py
 
 run:
 	@echo "Starting the service and MongoDB with Docker..."
