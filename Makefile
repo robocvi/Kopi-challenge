@@ -2,15 +2,17 @@ PYTHON := python3
 PIP := pip3
 docker_compose := docker-compose
 
-.PHONY: help install test run down clean
+.PHONY: help install test run down clean clean-cache nuke
 
 help:
 	@echo "Available commands:"
-	@echo "  make install    Install dependencies"
-	@echo "  make test       Run tests with pytest"
-	@echo "  make run        Run the service and MongoDB with Docker"
-	@echo "  make down       Stop and remove running containers"
-	@echo "  make clean      Remove all containers and volumes"
+	@echo "  make install       Install dependencies"
+	@echo "  make test          Run tests with pytest"
+	@echo "  make run           Run the service and MongoDB with Docker"
+	@echo "  make down          Stop and remove running containers"
+	@echo "  make clean         Remove all containers and volumes"
+	@echo "  make clean-cache   Remove cache files (__pycache__, pytest cache)"
+	@echo "  make nuke          Completely clean up the environment (down + clean + clean-cache)"
 
 install:
 	@echo "Installing dependencies..."
