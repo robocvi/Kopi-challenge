@@ -32,6 +32,37 @@ LLM_MODEL=your-llm-model-name
 
 ## 🚀 Cómo Ejecutar el Servicio
 
+### 📡 Llamadas al Chatbot desde la API
+
+El chatbot de **Kopi-Challenge** expone un endpoint en la API para enviar y recibir mensajes dentro de una conversación. La comunicación se realiza a través de solicitudes HTTP `POST` al siguiente endpoint:
+
+**Endpoint:**
+```http
+POST /kopi-chatbot
+```
+
+**Ejemplo de solicitud:**
+```json
+{
+  "conversation_id": "123e4567-e89b-12d3-a456-426614174000",  
+  "message": "Convénceme de que la Tierra es plana"
+}
+```
+- Si `conversation_id` es null, se inicia una nueva conversación y se genera un ID único.
+- Si se proporciona un `conversation_id`, el chatbot continuará la conversación previa basada en los mensajes almacenados en **MongoDB**.
+
+**Ejemplo de respuesta:**
+```json
+{
+  "conversation_id": "123e4567-e89b-12d3-a456-426614174000",
+  "messages": [
+    {"role": "user", "message": "Convénceme de que la Tierra es plana"},
+    {"role": "bot", "message": "Claro, la Tierra es plana porque..."}
+  ]
+}
+```
+El chatbot mantendrá la coherencia de su postura a lo largo de toda la conversación.
+
 Para instalar las dependencias del proyecto, ejecuta:
 ```sh
 make install
