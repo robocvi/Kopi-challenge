@@ -44,5 +44,6 @@ clean-cache:
 	@echo "Cleaning cache files..."
 	@find . -type d -name '__pycache__' -exec rm -rf {} +
 	@rm -rf .pytest_cache
+	@rm -rf tests/.pytest_cache
 
 nuke: down clean clean-cache;

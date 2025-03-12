@@ -28,7 +28,7 @@ LLM_MODEL=your-llm-model-name
 ### 📜 Explicación de las Variables
 - `OPENAI_API_KEY` → Clave de API de OpenAI.
 - `MONGO_DB_CONNECTION_STRING` → URI de conexión para MongoDB dentro del contenedor Docker.
-- `LLM_MODEL` → Modelo de lenguaje a utilizar (por ejemplo, `gpt-4`).
+- `LLM_MODEL` → Modelo de LLM a utilizar para nuestro chatbot (por ejemplo, `gpt-4o-mini`, este fue el utilizado para el desarrollo del proyecto).
 
 ## 🚀 Cómo Ejecutar el Servicio
 

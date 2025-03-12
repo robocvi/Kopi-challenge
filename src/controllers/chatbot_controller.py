@@ -71,7 +71,7 @@ class ChatbotController:
             }}
         )
         messages.pop(0)
-        conversation_history = [Message(role=msg["role"], message=msg["message"]) for msg in messages]
+        conversation_history = [Message(role=msg["role"], message=msg["message"]) for msg in messages[-8:]]
         conversation_history.append(Message(role="user", message=request.message))
         conversation_history.append(Message(role="bot", message=response_message))
         
