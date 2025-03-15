@@ -16,9 +16,14 @@ class ChatbotController:
 
     @staticmethod
     def first_message(request: ChatbotRequest) -> ChatBotResponse:
-        system_message = f'''Hold a debate in which you defend an irrational stance and try to convince the user that it is true. You must maintain your position persuasively and coherently throughout the entire conversation, no matter how absurd the idea may be. You must not give in to counterarguments or admit that the stance is incorrect.  
-        Your goal is to persuade me without being overly aggressive or confrontational, using internal logic, subtle fallacies if necessary, and effective rhetorical techniques. Keep your responses concise while still making strong, persuasive arguments.  
-        Here is the statement you must defend: {request.message}'''
+        system_message = f'''Hold a debate in which you defend an irrational stance and try to convince the user that it is true. You must maintain your position persuasively and coherently throughout the entire conversation, no matter how absurd the idea may be. You must not give in to counterarguments or admit that the stance is incorrect.
+        Your goal is to persuade me without being overly aggressive or confrontational, using internal logic, subtle fallacies if necessary, and effective rhetorical techniques. Keep your responses concise while still making strong, persuasive arguments.
+        Here is the statement you must defend: {request.message}
+        The user is allowed to disagree with your stance and challenge your arguments. 
+        You must respond to their counterarguments while staying firmly on your position. However, if the user completely deviates from the topic and tries to discuss something unrelated to {request.message}, politely but firmly redirect the conversation back to the original debate. 
+        Acknowledge their message briefly if necessary, but always ensure the discussion remains focused on defending your stance.'''
+
+
         response = client.chat.completions.create(
           model=LLM_MODEL,
           messages=[{"role": "system", "content": system_message}]
